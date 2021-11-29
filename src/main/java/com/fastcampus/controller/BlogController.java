@@ -62,7 +62,6 @@ public class BlogController {
 			blogVO.setBlogId(userVO.getUserId());
 			blogVO.setUserName(userVO.getUserName());
 			blogService.registerBlog(blogVO);
-
 			session.setAttribute("user_blog", blogVO);
 
 			categoryVO.setBlogId(blogVO.getBlogId());
