@@ -4,12 +4,14 @@ import javax.servlet.http.HttpSession;
 
 import com.fastcampus.component.service.BlogService;
 import com.fastcampus.component.vo.BlogVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fastcampus.component.service.UserService;
 import com.fastcampus.component.vo.UserVO;
 
+@Slf4j
 @Controller
 public class UserController {
 	
@@ -34,8 +36,8 @@ public class UserController {
 		if (user != null) {
 			session.setAttribute("user", user);
 			// 로그인 성공한 사용자가 블로그를 소유한 사용자인지 조회하여, 세션에 등록한다.
-			if (userService.getUserBlog(vo) != null) {
-				session.setAttribute("user_blog", userService.getUserBlog(vo));
+			if (userService.getUserBlog(user) != null) {
+				session.setAttribute("user_blog", userService.getUserBlog(user));
 			}
 		}
 		// index 페이지로 이동
