@@ -1,5 +1,7 @@
-package com.fastcampus.post;
+package com.fastcampus.component.service;
 
+
+import com.fastcampus.component.vo.PostVO;
 
 import java.util.List;
 

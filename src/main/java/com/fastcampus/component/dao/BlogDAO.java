@@ -1,7 +1,6 @@
-package com.fastcampus.blog;
+package com.fastcampus.component.dao;
 
-import com.fastcampus.post.PostDAO;
-import com.fastcampus.post.PostVO;
+import com.fastcampus.component.vo.BlogVO;
 import com.fastcampus.util.JDBCUtil;
 import org.springframework.stereotype.Repository;
 

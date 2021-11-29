@@ -1,6 +1,7 @@
-package com.fastcampus.category;
+package com.fastcampus.component.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fastcampus.component.vo.CategoryVO;
+import com.fastcampus.component.dao.CategoryDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

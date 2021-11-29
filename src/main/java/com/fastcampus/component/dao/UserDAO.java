@@ -1,10 +1,11 @@
-package com.fastcampus.user;
+package com.fastcampus.component.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.fastcampus.blog.BlogVO;
+import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.vo.UserVO;
 import com.fastcampus.util.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,7 @@ public class UserDAO {
 	private String USER_INSERT  	 = "INSERT INTO BLOG_USER VALUES ((SELECT NVL(MAX(USER_ID),0)+1 FROM BLOG_USER), ?, ?, 'USER', ?)";
 	private String USER_UPDATE  	 = "UPDATE BLOG_USER SET USER_NAME = ?, PASSWORD = ?, ROLE=? WHERE USER_ID = ?";
 	private String USER_DELETE		 = "DELETE BLOG_USER WHERE USER_ID = ?";
+	private String USER_BLOG 		 = "SELECT BLOG.* FROM BLOG WHERE BLOG_ID = ?";
 
 	public UserVO getUser(UserVO vo) {
 		UserVO user = null;
@@ -87,6 +89,30 @@ public class UserDAO {
 		} finally {
 			JDBCUtil.close(stmt, conn);
 		}
+	}
+
+	public BlogVO getUserBlog(UserVO vo){
+		BlogVO blogVO = null;
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(USER_BLOG);
+			stmt.setInt(1, vo.getUserId());
+			rs = stmt.executeQuery();
+			if (rs.next()){
+				blogVO = new BlogVO();
+				blogVO.setBlogId(rs.getInt("BLOG_ID"));
+				blogVO.setUserName(rs.getString("USER_NAME"));
+				blogVO.setCntDisplayPost(rs.getInt("CNT_DISPLAY_POST"));
+				blogVO.setStatus(rs.getString("STATUS"));
+				blogVO.setTag(rs.getString("TAG"));
+				blogVO.setTitle(rs.getString("TITLE"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		return blogVO;
 	}
 
 }

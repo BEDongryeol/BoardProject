@@ -1,10 +1,10 @@
 package com.fastcampus.controller;
 
-import com.fastcampus.blog.BlogVO;
-import com.fastcampus.category.CategoryService;
-import com.fastcampus.category.CategoryVO;
-import com.fastcampus.post.PostService;
-import com.fastcampus.post.PostVO;
+import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.service.CategoryService;
+import com.fastcampus.component.vo.CategoryVO;
+import com.fastcampus.component.service.PostService;
+import com.fastcampus.component.vo.PostVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

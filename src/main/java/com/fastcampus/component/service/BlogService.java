@@ -1,10 +1,14 @@
-package com.fastcampus.blog;
+package com.fastcampus.component.service;
 
-import com.fastcampus.post.PostVO;
+import com.fastcampus.component.vo.BlogVO;
 
 import java.util.List;
 
 public interface BlogService {
+
+    // keyword check
+    Boolean hasSearchWord(BlogVO vo);
+
     // 블로그 조회
     BlogVO getBlog(BlogVO vo);
 

@@ -2,13 +2,13 @@ package com.fastcampus.controller;
 
 import javax.servlet.http.HttpSession;
 
-import com.fastcampus.blog.BlogService;
-import com.fastcampus.blog.BlogVO;
+import com.fastcampus.component.service.BlogService;
+import com.fastcampus.component.vo.BlogVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fastcampus.user.UserService;
-import com.fastcampus.user.UserVO;
+import com.fastcampus.component.service.UserService;
+import com.fastcampus.component.vo.UserVO;
 
 @Controller
 public class UserController {
@@ -30,15 +30,12 @@ public class UserController {
 	@RequestMapping("/login.do")
 	public String login(UserVO vo, HttpSession session) {
 		UserVO user = userService.getUser(vo);
+		// 로그인 성공한 경우 세션에 사용자 정보 저장
 		if (user != null) {
-			// 로그인 성공한 경우 세션에 사용자 정보 저장
 			session.setAttribute("user", user);
-			// To Do: 로그인 성공한 사용자가 블로그를 소유한 사용자인지 조회하여, 세션에 등록한다.
-			BlogVO blogVO = new BlogVO();
-			blogVO.setBlogId(user.getUserId());
-			BlogVO userBlog = blogService.getBlog(blogVO);
-			if (userBlog != null) {
-				session.setAttribute("user_blog", userBlog);
+			// 로그인 성공한 사용자가 블로그를 소유한 사용자인지 조회하여, 세션에 등록한다.
+			if (userService.getUserBlog(vo) != null) {
+				session.setAttribute("user_blog", userService.getUserBlog(vo));
 			}
 		}
 		// index 페이지로 이동
@@ -51,9 +48,4 @@ public class UserController {
 		return "redirect:/";
 	}
 
-//	@RequestMapping("/insertUser.do")
-//	public String loginView(UserVO vo) {
-//		userService.insertUser(vo);
-//		return "/";
-//	}
 }

@@ -1,5 +1,6 @@
-package com.fastcampus.category;
+package com.fastcampus.component.dao;
 
+import com.fastcampus.component.vo.CategoryVO;
 import com.fastcampus.util.JDBCUtil;
 import org.springframework.stereotype.Repository;
 

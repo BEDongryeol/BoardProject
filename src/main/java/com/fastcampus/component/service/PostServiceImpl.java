@@ -1,6 +1,7 @@
-package com.fastcampus.post;
+package com.fastcampus.component.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fastcampus.component.dao.PostDAO;
+import com.fastcampus.component.vo.PostVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

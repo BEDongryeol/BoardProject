@@ -1,12 +1,12 @@
 package com.fastcampus.controller;
 
-import com.fastcampus.blog.BlogService;
-import com.fastcampus.blog.BlogVO;
-import com.fastcampus.category.CategoryService;
-import com.fastcampus.category.CategoryVO;
-import com.fastcampus.post.PostService;
-import com.fastcampus.post.PostVO;
-import com.fastcampus.user.UserVO;
+import com.fastcampus.component.service.BlogService;
+import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.service.CategoryService;
+import com.fastcampus.component.vo.CategoryVO;
+import com.fastcampus.component.service.PostService;
+import com.fastcampus.component.vo.PostVO;
+import com.fastcampus.component.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +35,7 @@ public class BlogController {
 
 	@RequestMapping("/blog")
 	public String index(BlogVO vo, Model model) {
-		if (vo.getSearchKeyword() == null && vo.getSearchCondition()==null) {
+		if (!blogService.hasSearchWord(vo)) {
 			return "redirect:/";
 		}
 		model.addAttribute("blogList", blogService.getBlogList(vo));
@@ -47,6 +47,7 @@ public class BlogController {
 	public String blogCreateView(){
 		return "blogcreate";
 	}
+
 	// 개인 블로그 생성
 	@RequestMapping("/blog/create")
 	public String blogCreate(BlogVO blogVO, HttpSession session){
