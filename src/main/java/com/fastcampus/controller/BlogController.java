@@ -8,6 +8,7 @@ import com.fastcampus.component.vo.CategoryVO;
 import com.fastcampus.component.service.PostService;
 import com.fastcampus.component.vo.PostVO;
 import com.fastcampus.component.vo.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class BlogController {
 
 	final BlogService blogService;
@@ -53,17 +55,20 @@ public class BlogController {
 
 	// 개인 블로그 생성
 	@RequestMapping("/blog/create")
-	public String blogCreate(BlogVO blogVO, HttpSession session)	{
+	public String blogCreate(BlogVO blogVO, CategoryVO categoryVO, HttpSession session)	{
 		UserVO userVO = (UserVO) session.getAttribute("user");
 
 		if (userService.getUserBlog(userVO) == null) {
+			blogVO.setBlogId(userVO.getUserId());
+			blogVO.setUserName(userVO.getUserName());
 			blogService.registerBlog(blogVO);
+
 			session.setAttribute("user_blog", blogVO);
 
-			CategoryVO categoryVO = new CategoryVO();
 			categoryVO.setBlogId(blogVO.getBlogId());
 			categoryService.addDefaultCategory(categoryVO);
 		}
+
 		return "forward:/blog";
 	}
 
