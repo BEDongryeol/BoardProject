@@ -1,6 +1,7 @@
 package com.fastcampus.controller;
 
 import com.fastcampus.component.service.BlogService;
+import com.fastcampus.component.service.UserService;
 import com.fastcampus.component.vo.BlogVO;
 import com.fastcampus.component.service.CategoryService;
 import com.fastcampus.component.vo.CategoryVO;
@@ -21,11 +22,13 @@ public class BlogController {
 	final BlogService blogService;
 	final CategoryService categoryService;
 	final PostService postService;
+	final UserService userService;
 
-	public BlogController(BlogService blogService, CategoryService categoryService, PostService postService) {
+	public BlogController(BlogService blogService, CategoryService categoryService, PostService postService, UserService userService) {
 		this.blogService = blogService;
 		this.categoryService = categoryService;
 		this.postService = postService;
+		this.userService = userService;
 	}
 
 	@RequestMapping("/")
@@ -50,15 +53,13 @@ public class BlogController {
 
 	// 개인 블로그 생성
 	@RequestMapping("/blog/create")
-	public String blogCreate(BlogVO blogVO, HttpSession session){
-		if (blogVO.getTitle() != null) {
-			UserVO user = (UserVO) session.getAttribute("user");
+	public String blogCreate(BlogVO blogVO, HttpSession session)	{
+		UserVO userVO = (UserVO) session.getAttribute("user");
 
-			blogVO.setBlogId(user.getUserId());
-			blogVO.setUserName(user.getUserName());
-
-			session.setAttribute("user_blog", blogVO);
+		if (userService.getUserBlog(userVO) == null) {
 			blogService.registerBlog(blogVO);
+			session.setAttribute("user_blog", blogVO);
+
 			CategoryVO categoryVO = new CategoryVO();
 			categoryVO.setBlogId(blogVO.getBlogId());
 			categoryService.addDefaultCategory(categoryVO);
