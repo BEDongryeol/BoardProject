@@ -1,4 +1,4 @@
-package com.fastcampus.user;
+package com.fastcampus.component.vo;
 
 import lombok.Data;
 

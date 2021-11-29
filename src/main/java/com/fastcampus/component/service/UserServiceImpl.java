@@ -1,7 +1,8 @@
-package com.fastcampus.user;
+package com.fastcampus.component.service;
 
-import com.fastcampus.blog.BlogVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fastcampus.component.dao.UserDAO;
+import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(UserVO vo) {
 		userDAO.deleteUser(vo);
+	}
+
+	@Override
+	public BlogVO getUserBlog(UserVO vo) {
+		return userDAO.getUserBlog(vo);
 	}
 
 }

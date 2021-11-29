@@ -1,6 +1,7 @@
-package com.fastcampus.blog;
+package com.fastcampus.component.service;
 
-import com.fastcampus.post.PostVO;
+import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.dao.BlogDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,13 @@ public class BlogServiceImpl implements BlogService {
         this.blogDAO = blogDAO;
     }
 
+    @Override
+    public Boolean hasSearchWord(BlogVO vo) {
+        if (vo.getSearchKeyword() == null && vo.getSearchCondition() == null) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public BlogVO getBlog(BlogVO vo) {

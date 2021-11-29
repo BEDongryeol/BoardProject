@@ -1,4 +1,6 @@
-package com.fastcampus.category;
+package com.fastcampus.component.service;
+
+import com.fastcampus.component.vo.CategoryVO;
 
 import java.util.List;
 

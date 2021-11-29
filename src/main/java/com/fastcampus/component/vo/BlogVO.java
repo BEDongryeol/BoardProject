@@ -1,4 +1,4 @@
-package com.fastcampus.blog;
+package com.fastcampus.component.vo;
 
 import lombok.Data;
 
