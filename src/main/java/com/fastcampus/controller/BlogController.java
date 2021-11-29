@@ -127,7 +127,6 @@ public class BlogController {
 
 	@RequestMapping("/blog/basicsetting")
 	public String basicSettingView(){
-
 		return "basicsetting";
 	}
 

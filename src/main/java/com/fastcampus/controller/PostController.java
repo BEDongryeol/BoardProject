@@ -74,7 +74,6 @@ public class PostController {
         vo.setCategoryId(categoryId.getCategoryId());
         postService.createPost(vo);
         BlogVO blogVO = (BlogVO) session.getAttribute("blog");
-//        return "forward:/post/category";
         return "redirect:/blog/user?blogId=" + blogVO.getBlogId();
     }
 
