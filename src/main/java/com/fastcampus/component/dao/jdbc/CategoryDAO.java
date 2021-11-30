@@ -1,4 +1,4 @@
-package com.fastcampus.component.dao;
+package com.fastcampus.component.dao.jdbc;
 
 import com.fastcampus.component.vo.CategoryVO;
 import com.fastcampus.util.JDBCUtil;
