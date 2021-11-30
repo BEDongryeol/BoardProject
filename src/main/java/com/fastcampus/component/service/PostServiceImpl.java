@@ -1,6 +1,6 @@
 package com.fastcampus.component.service;
 
-import com.fastcampus.component.dao.PostDAO;
+import com.fastcampus.component.dao.jdbc.PostDAO;
 import com.fastcampus.component.vo.PostVO;
 import org.springframework.stereotype.Service;
 
