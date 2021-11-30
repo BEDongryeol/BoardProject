@@ -1,4 +1,4 @@
-package com.fastcampus.component.dao;
+package com.fastcampus.component.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -107,6 +107,7 @@ public class UserDAO {
 				blogVO.setTag(rs.getString("TAG"));
 				blogVO.setTitle(rs.getString("TITLE"));
 			}
+			return blogVO;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
