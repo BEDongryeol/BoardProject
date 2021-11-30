@@ -1,6 +1,7 @@
-package com.fastcampus.component.dao;
+package com.fastcampus.component.dao.jdbc;
 
 import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.vo.PostVO;
 import com.fastcampus.util.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,7 @@ public class BlogDAO {
     private final String BLOG_REGISTER     = "INSERT INTO BLOG(BLOG_ID, TITLE, USER_NAME, TAG, CNT_DISPLAY_POST, STATUS) VALUES(?, ?, ?, '', 5, '운영') ";
     private final String BLOG_UPDATE       = "UPDATE BLOG SET TITLE=?, TAG=?, CNT_DISPLAY_POST=? WHERE BLOG_ID = ?";
     private final String BLOG_DELETE       = "DELETE BLOG WHERE BLOG_ID = ?";
+    private final String BLOG_POSTS        = "SELECT POST.* FROM POST, BLOG WHERE BLOG.BLOG_ID = ? ORDER BY CREATED_DATE DESC";
 
     // 블로그 조회
     public BlogVO getBlog(BlogVO vo){
@@ -136,6 +138,30 @@ public class BlogDAO {
         } finally {
             JDBCUtil.close(stmt, conn);
         }
+    }
+
+    public List<PostVO> getBlogPosts(BlogVO vo){
+        List<PostVO> postList = new ArrayList<>();
+        try {
+            conn = JDBCUtil.getConnection();
+            stmt = conn.prepareStatement(BLOG_POSTS);
+            stmt.setInt(1, vo.getBlogId());
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                PostVO post = new PostVO();
+                post.setPostId(rs.getInt("POST_ID"));
+                post.setTitle(rs.getString("TITLE"));
+                post.setCategoryId(rs.getInt("CATEGORY_ID"));
+                post.setContent(rs.getString("CONTENT"));
+                post.setCreatedDate(rs.getDate("CREATED_DATE"));
+                postList.add(post);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            JDBCUtil.close(stmt, conn);
+        }
+        return postList;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.fastcampus.component.service;
 
 import com.fastcampus.component.vo.BlogVO;
+import com.fastcampus.component.vo.PostVO;
 
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface BlogService {
 
     // 블로그 삭제 요청
     void deleteBlog(BlogVO vo);
+
+    List<PostVO> getBlogPosts(BlogVO vo);
 
 }

@@ -1,7 +1,8 @@
 package com.fastcampus.component.service;
 
 import com.fastcampus.component.vo.BlogVO;
-import com.fastcampus.component.dao.BlogDAO;
+import com.fastcampus.component.dao.jdbc.BlogDAO;
+import com.fastcampus.component.vo.PostVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,11 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(BlogVO vo) {
         blogDAO.deleteBlog(vo);
+    }
+
+    @Override
+    public List<PostVO> getBlogPosts(BlogVO vo) {
+        return blogDAO.getBlogPosts(vo);
     }
 
 }

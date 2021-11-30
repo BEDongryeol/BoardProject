@@ -8,6 +8,7 @@ import com.fastcampus.component.vo.CategoryVO;
 import com.fastcampus.component.service.PostService;
 import com.fastcampus.component.vo.PostVO;
 import com.fastcampus.component.vo.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class BlogController {
 
 	final BlogService blogService;
@@ -53,25 +55,26 @@ public class BlogController {
 
 	// 개인 블로그 생성
 	@RequestMapping("/blog/create")
-	public String blogCreate(BlogVO blogVO, HttpSession session)	{
+	public String blogCreate(BlogVO blogVO, CategoryVO categoryVO, HttpSession session)	{
 		UserVO userVO = (UserVO) session.getAttribute("user");
 
 		if (userService.getUserBlog(userVO) == null) {
+			blogVO.setBlogId(userVO.getUserId());
+			blogVO.setUserName(userVO.getUserName());
 			blogService.registerBlog(blogVO);
 			session.setAttribute("user_blog", blogVO);
 
-			CategoryVO categoryVO = new CategoryVO();
 			categoryVO.setBlogId(blogVO.getBlogId());
 			categoryService.addDefaultCategory(categoryVO);
 		}
+
 		return "forward:/blog";
 	}
 
 	@RequestMapping("/blog/user")
-	public String getBlog(BlogVO vo, HttpSession session, Model model){
+	public String getBlog(BlogVO vo, CategoryVO categoryVO, HttpSession session, Model model){
 		session.setAttribute("blog", blogService.getBlog(vo));
 
-		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setBlogId(vo.getBlogId());
 
 		// blogId가 일치하는 카테고리들 가져오기
@@ -83,19 +86,9 @@ public class BlogController {
 
 		// 세션을 통해 카테고리별 분류인지 아닌지 확인
 		if (session.getAttribute("byCategory") == null){
-			List<PostVO> postVOList = new ArrayList<>();
-			List<PostVO> postOfBlog = new ArrayList<>();
-			for (CategoryVO category : categoryVOList) {
-				PostVO post = new PostVO();
-				post.setCategoryId(category.getCategoryId());
-				if (!postVOList.contains(post)) {
-					postVOList.add(post);
-					if (postService.getPosts(post) != null) {
-						postOfBlog.addAll(postService.getPosts(post));
-					}
-				}
-			}
+			List<PostVO> postOfBlog = blogService.getBlogPosts(vo);
 			model.addAttribute("posts", postOfBlog);
+
 		} else {
 			PostVO postVO = (PostVO) session.getAttribute("byCategory");
 			List<PostVO> postList = postService.getPosts(postVO);
@@ -131,7 +124,7 @@ public class BlogController {
 	}
 
 	@RequestMapping("/blog/setting")
-	public String basicSetting(BlogVO vo, HttpSession session){
+	public String basicSetting(BlogVO vo){
 		return "forward:/blog/updateView?blogId=" + vo.getBlogId();
 	}
 }

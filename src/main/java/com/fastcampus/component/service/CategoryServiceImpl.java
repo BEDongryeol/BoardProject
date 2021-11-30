@@ -1,7 +1,7 @@
 package com.fastcampus.component.service;
 
 import com.fastcampus.component.vo.CategoryVO;
-import com.fastcampus.component.dao.CategoryDAO;
+import com.fastcampus.component.dao.jdbc.CategoryDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

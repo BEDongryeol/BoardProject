@@ -1,4 +1,4 @@
-package com.fastcampus.component.dao;
+package com.fastcampus.component.dao.jdbc;
 
 import com.fastcampus.component.vo.PostVO;
 import com.fastcampus.util.JDBCUtil;
@@ -16,11 +16,11 @@ public class PostDAO {
     private PreparedStatement stmt;
     private ResultSet rs;
 
-    private final String POST_GET             = "SELECT * FROM POST WHERE POST_ID = ?";
+    private final String POST_GET             = "SELECT * FROM POST WHERE POST_ID = ? ORDER BY CREATED_DATE DESC";
     private final String POST_CRATE           = "INSERT INTO POST(POST_ID, CATEGORY_ID, TITLE, CONTENT) VALUES((SELECT NVL(MAX(POST_ID),0)+1 FROM POST), ?, ?, ?)";
     private final String POST_UPDATE          = "UPDATE POST SET CATEGORY_ID=?, TITLE=?, CONTENT=? WHERE Post_ID=? ";
     private final String DELETE_POST          = "DELETE POST WHERE POST_ID=?";
-    private final String BLOG_POST            = "SELECT * FROM POST WHERE CATEGORY_ID = ?";
+    private final String BLOG_POST            = "SELECT * FROM POST WHERE CATEGORY_ID = ? ORDER BY CREATED_DATE DESC";
 
 
     // 게시글 생성

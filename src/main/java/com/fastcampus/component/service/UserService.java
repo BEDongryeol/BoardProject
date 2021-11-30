@@ -13,5 +13,5 @@ public interface UserService {
 
 	void deleteUser(UserVO vo);
 
-	public BlogVO getUserBlog(UserVO vo);
+	BlogVO getUserBlog(UserVO vo);
 }
