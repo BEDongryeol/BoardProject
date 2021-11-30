@@ -1,5 +1,6 @@
 package com.fastcampus.component.service;
 
+import com.fastcampus.component.dao.jpa.PostRepository;
 import com.fastcampus.component.vo.BlogVO;
 import com.fastcampus.component.dao.jdbc.BlogDAO;
 import com.fastcampus.component.vo.PostVO;
@@ -11,8 +12,7 @@ import java.util.List;
 public class BlogServiceImpl implements BlogService {
 
     final BlogDAO blogDAO;
-
-    public BlogServiceImpl(BlogDAO blogDAO) {
+    public BlogServiceImpl(BlogDAO blogDAO, PostRepository postRepository) {
         this.blogDAO = blogDAO;
     }
 
