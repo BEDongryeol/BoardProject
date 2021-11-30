@@ -72,10 +72,9 @@ public class BlogController {
 	}
 
 	@RequestMapping("/blog/user")
-	public String getBlog(BlogVO vo, HttpSession session, Model model){
+	public String getBlog(BlogVO vo, CategoryVO categoryVO, HttpSession session, Model model){
 		session.setAttribute("blog", blogService.getBlog(vo));
 
-		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setBlogId(vo.getBlogId());
 
 		// blogId가 일치하는 카테고리들 가져오기
@@ -87,19 +86,9 @@ public class BlogController {
 
 		// 세션을 통해 카테고리별 분류인지 아닌지 확인
 		if (session.getAttribute("byCategory") == null){
-			List<PostVO> postVOList = new ArrayList<>();
-			List<PostVO> postOfBlog = new ArrayList<>();
-			for (CategoryVO category : categoryVOList) {
-				PostVO post = new PostVO();
-				post.setCategoryId(category.getCategoryId());
-				if (!postVOList.contains(post)) {
-					postVOList.add(post);
-					if (postService.getPosts(post) != null) {
-						postOfBlog.addAll(postService.getPosts(post));
-					}
-				}
-			}
+			List<PostVO> postOfBlog = blogService.getBlogPosts(vo);
 			model.addAttribute("posts", postOfBlog);
+
 		} else {
 			PostVO postVO = (PostVO) session.getAttribute("byCategory");
 			List<PostVO> postList = postService.getPosts(postVO);
@@ -135,7 +124,7 @@ public class BlogController {
 	}
 
 	@RequestMapping("/blog/setting")
-	public String basicSetting(BlogVO vo, HttpSession session){
+	public String basicSetting(BlogVO vo){
 		return "forward:/blog/updateView?blogId=" + vo.getBlogId();
 	}
 }
