@@ -15,7 +15,8 @@ A.title:hover 		{ font-size:9pt; font-family:"굴림체"; color:dc143c; text-dec
 .tdcontentright		{ background-color:#FFFFFF; font-size:9pt; font-family:"Tahoma"; height:10px;text-align:right; }
 
 .blogtitle			{ font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Arial, Sans-Serif;
-	font-weight: bold; font-size:30pt; color:#FFFFFF;text-align:center; }
+					font-weight: bold; font-size:30pt; color:#FFFFFF;text-align:center; }
+
 .blogtag			{ font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Arial, Sans-Serif;
 	font-size:9pt; color:#FFFFFF;text-align:center; }
 .blogfooter		{ font-size:9pt; font-family:"Tahoma"; height:10px;text-align:center; }

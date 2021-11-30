@@ -118,11 +118,6 @@ public class BlogController {
 		return "forward:/blog/setting";
 	}
 
-	@RequestMapping("/blog/basicsetting")
-	public String basicSettingView(){
-		return "basicsetting";
-	}
-
 	@RequestMapping("/blog/setting")
 	public String basicSetting(BlogVO vo){
 		return "forward:/blog/updateView?blogId=" + vo.getBlogId();
