@@ -1,4 +1,4 @@
-package com.fastcampus.component.dao;
+package com.fastcampus.component.dao.jdbc;
 
 import com.fastcampus.component.vo.BlogVO;
 import com.fastcampus.component.vo.PostVO;
